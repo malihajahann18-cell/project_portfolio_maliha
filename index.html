@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maliha Jahan - Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #7c3aed;
+            --accent: #f59e0b;
+        }
+        * { scroll-behavior: smooth; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: radial-gradient(circle at top, #0f172a 0%, #020617 45%, #020617 100%);
+            color: #e5e7eb;
+            overflow-x: hidden;
+        }
+        .glass-nav {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(18px);
+            border-bottom: 1px solid rgba(148, 163, 184, 0.25);
+        }
+        .nav-link {
+            position: relative;
+            font-weight: 500;
+            padding-bottom: 4px;
+            color: #cbd5f5;
+            transition: color 0.25s ease;
+        }
+        .nav-link::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0%;
+            height: 2px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transition: width 0.25s ease;
+        }
+        .nav-link:hover { color: #e5e7eb; }
+        .nav-link:hover::after, .nav-link.active-nav::after { width: 100%; }
+        .nav-link.active-nav { color: var(--primary); }
+        .hero-bg {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 120px;
+            padding-bottom: 80px;
+        }
+        .hero-shell {
+            background: radial-gradient(circle at top left, rgba(124,58,237,0.25), transparent 55%),
+                        radial-gradient(circle at bottom right, rgba(245,158,11,0.25), transparent 55%);
+            border-radius: 32px;
+            border: 1px solid rgba(148, 163, 184, 0.35);
+            box-shadow: 0 25px 60px rgba(15, 23, 42, 0.9), 0 0 0 1px rgba(15,23,42,0.8);
+            padding: 40px 32px;
+        }
+        .hero-title {
+            background: linear-gradient(120deg, #f9fafb, #ede9fe, #fde68a);
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            border-radius: 999px;
+            background: rgba(15,23,42,0.8);
+            border: 1px solid rgba(148,163,184,0.5);
+            font-size: 0.85rem;
+            color: #e5e7eb;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: #0b1120;
+            font-weight: 600;
+            padding: 0.85rem 1.9rem;
+            border-radius: 999px;
+            font-size: 0.95rem;
+            box-shadow: 0 14px 35px rgba(124,58,237,0.25);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 50px rgba(245,158,11,0.22);
+        }
+        .btn-ghost {
+            border-radius: 999px;
+            border: 1px solid rgba(148,163,184,0.7);
+            padding: 0.85rem 1.7rem;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #e5e7eb;
+            background: rgba(15,23,42,0.85);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+        .btn-ghost:hover {
+            background: rgba(15,23,42,1);
+            transform: translateY(-2px);
+        }
+        .profile-ring {
+            position: relative;
+            width: 320px;
+            height: 320px;
+            border-radius: 50%;
+            padding: 4px;
+            background: conic-gradient(from 180deg, var(--primary), var(--accent), var(--primary));
+            box-shadow: 0 0 35px rgba(124,58,237,0.45), 0 18px 45px rgba(15,23,42,0.9);
+        }
+        .profile-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: inherit;
+            padding: 10px;
+            background: #020617;
+        }
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            border-radius: inherit;
+            object-fit: cover;
+        }
+        .section-shell {
+            max-width: 1100px;
+            margin: 0 auto;
+            border-radius: 28px;
+            padding: 32px 24px;
+            background: rgba(15,23,42,0.9);
+            border: 1px solid rgba(148,163,184,0.35);
+            box-shadow: 0 18px 55px rgba(15,23,42,0.95);
+        }
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 1.75rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .section-pill {
+            width: 32px;
+            height: 4px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+        .subtle-label {
+            font-size: 0.78rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #9ca3af;
+        }
+        .about-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 2fr) minmax(0, 1.6fr);
+            gap: 28px;
+        }
+        .about-card {
+            background: radial-gradient(circle at top left, rgba(15,23,42,0.9), rgba(15,23,42,0.98));
+            border-radius: 22px;
+            padding: 20px 22px;
+            border: 1px solid rgba(148,163,184,0.4);
+        }
+        .about-highlight {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0,1fr));
+            gap: 12px;
+        }
+        .about-pill {
+            border-radius: 999px;
+            border: 1px solid rgba(148,163,184,0.7);
+            padding: 6px 10px;
+            font-size: 0.78rem;
+            color: #e5e7eb;
+            background: rgba(15,23,42,0.85);
+        }
+        .skill-card {
+            border-radius: 18px;
+            padding: 16px 18px;
+            background: rgba(15,23,42,0.9);
+            border: 1px solid rgba(148,163,184,0.4);
+            box-shadow: 0 12px 35px rgba(15,23,42,0.9);
+        }
+        .skill-bar {
+            position: relative;
+            width: 100%;
+            height: 8px;
+            border-radius: 999px;
+            background: rgba(31,41,55,0.9);
+            overflow: hidden;
+            margin-top: 0.85rem;
+        }
+        .skill-level {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+        .project-card {
+            border-radius: 20px;
+            padding: 20px 20px 22px;
+            background: radial-gradient(circle at top left, rgba(15,23,42,0.95), rgba(15,23,42,1));
+            border: 1px solid rgba(148,163,184,0.4);
+            box-shadow: 0 18px 55px rgba(15,23,42,0.95);
+            position: relative;
+            overflow: hidden;
+        }
+        .project-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at top right, rgba(124,58,237,0.18), transparent 55%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .project-card:hover::before { opacity: 1; }
+        .project-tag {
+            font-size: 0.75rem;
+            padding: 4px 9px;
+            border-radius: 999px;
+            background: rgba(15,23,42,0.9);
+            border: 1px solid rgba(148,163,184,0.55);
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            color: #9ca3af;
+        }
+        .contact-shell {
+            display: grid;
+            grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+            gap: 26px;
+        }
+        .contact-card {
+            border-radius: 22px;
+            padding: 24px 22px;
+            background: rgba(15,23,42,0.96);
+            border: 1px solid rgba(148,163,184,0.45);
+            box-shadow: 0 18px 55px rgba(15,23,42,1);
+        }
+        .contact-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 11px;
+            border-radius: 999px;
+            background: rgba(15,23,42,0.95);
+            border: 1px solid rgba(148,163,184,0.4);
+            font-size: 0.78rem;
+            color: #9ca3af;
+        }
+        footer {
+            border-top: 1px solid rgba(148,163,184,0.35);
+            background: rgba(15,23,42,0.96);
+        }
+        @media (min-width: 1024px) {
+            .hero-shell { padding: 44px 40px; }
+        }
+        @media (max-width: 1023px) {
+            .hero-shell { text-align: center; }
+            .profile-ring { margin: 32px auto 0; }
+            .about-grid { grid-template-columns: minmax(0, 1fr); }
+            .contact-shell { grid-template-columns: minmax(0, 1fr); }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="glass-nav fixed top-0 left-0 right-0 z-40">
+    <div class="max-w-6xl mx-auto px-4 lg:px-0">
+        <div class="flex items-center justify-between h-16">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-violet-500 to-amber-400 flex items-center justify-center text-xs font-bold text-slate-950 shadow-lg">
+                    MJ
+                </div>
+                <div class="flex flex-col leading-tight">
+                    <span class="text-sm font-semibold text-slate-50">Maliha Jahan</span>
+                    <span class="text-[11px] text-slate-400">CSE • Creative Developer</span>
+                </div>
+            </div>
+            <button id="nav-toggle" class="lg:hidden text-slate-200 focus:outline-none">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+            <div id="nav-links" class="hidden lg:flex items-center space-x-8 text-sm">
+                <a href="#home" class="nav-link active-nav">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#skills" class="nav-link">Skills</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+        </div>
+        <div id="nav-mobile" class="lg:hidden hidden pb-4 border-t border-slate-700 mt-2">
+            <div class="flex flex-col gap-2 pt-3 text-sm">
+                <a href="#home" class="nav-link block w-max">Home</a>
+                <a href="#about" class="nav-link block w-max">About</a>
+                <a href="#skills" class="nav-link block w-max">Skills</a>
+                <a href="#projects" class="nav-link block w-max">Projects</a>
+                <a href="#contact" class="nav-link block w-max">Contact</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero -->
+<section id="home" class="hero-bg">
+    <div class="max-w-6xl mx-auto px-4 lg:px-0">
+        <div class="hero-shell">
+            <div class="grid lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1.1fr)] gap-10 lg:gap-14 items-center">
+                <div>
+                    <span class="chip mb-4">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                        Open to learning, building & collaborating
+                    </span>
+                    <h1 class="hero-title text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-3">
+                        CSE Student, Crafter & Emerging Developer.
+                    </h1>
+                    <p class="text-slate-300 text-lg md:text-xl mb-6">
+                        CSE Student | Creative Developer
+                    </p>
+                    <p class="text-slate-300/90 text-sm md:text-base leading-relaxed max-w-xl mb-7">
+                        I’m <span class="text-violet-300 font-medium">Maliha Jahan</span> — blending code, design,
+                        and creativity. From console-based systems to handmade crafts,
+                        I love turning ideas into something real, beautiful, and useful.
+                    </p>
+                    <div class="flex flex-wrap items-center gap-3">
+                        <a href="#contact" class="btn-primary inline-flex items-center gap-2">
+                            <i class="fa-solid fa-paper-plane text-xs"></i>
+                            Let’s Connect
+                        </a>
+                        <a href="Maliha_Jahan_CV.pdf" download class="btn-ghost">
+                            <i class="fas fa-download text-xs"></i>
+                            Download CV
+                        </a>
+                    </div>
+                    <div class="mt-6 flex flex-wrap gap-3 text-xs text-slate-400">
+                        <div class="flex items-center gap-2">
+                            <span class="w-1.5 h-1.5 rounded-full bg-violet-400"></span>
+                            CSE Student • Chattogram, Bangladesh
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+                            Owner of <span class="font-medium text-slate-100">Craft_Zennz</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-center lg:justify-end">
+                    <div class="relative profile-ring">
+                        <div class="profile-inner">
+                            <img src="maliha.jpg.jpg" alt="Maliha Jahan" class="profile-img">
+                        </div>
+                        <div class="absolute -bottom-6 left-1/2 -translate-x-1/2 rounded-2xl bg-slate-900/95 border border-slate-600 px-4 py-2 flex items-center gap-3 text-xs shadow-xl">
+                            <div class="w-6 h-6 rounded-full bg-gradient-to-tr from-violet-500 to-amber-400 flex items-center justify-center text-[11px] font-semibold text-slate-950">
+                                MJ
+                            </div>
+                            <div class="flex flex-col leading-tight">
+                                <span class="text-slate-100 font-medium">Creative & Detail-Oriented</span>
+                                <span class="text-slate-400">Loves teaching, coding & crafting</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About -->
+<section id="about" class="py-20 md:py-24">
+    <div class="section-shell">
+        <div class="flex items-center justify-between gap-3 mb-6">
+            <div>
+                <p class="subtle-label">A bit about me</p>
+                <h2 class="section-title">
+                    About Me
+                    <span class="section-pill"></span>
+                </h2>
+            </div>
+        </div>
+        <div class="about-grid">
+            <div class="about-card">
+                <p class="text-sm md:text-[0.95rem] text-slate-200 leading-relaxed mb-4">
+                    I’m <span class="text-violet-300 font-semibold">Maliha Jahan</span>, a Computer Science & Engineering student
+                    who enjoys learning by doing. I explore programming, work on small projects like
+                    banking & ATM systems, and love experimenting with UI, structures, and logic.
+                </p>
+                <p class="text-sm md:text-[0.95rem] text-slate-200 leading-relaxed mb-4">
+                    Outside of tech, I run my craft page
+                    <span class="text-amber-200 font-medium">Craft_Zennz</span>, where I design and create handmade pieces.
+                    It balances my logical side with art, colors, and meaningful designs.
+                </p>
+                <p class="text-sm md:text-[0.95rem] text-slate-200 leading-relaxed mb-5">
+                    I value <span class="text-violet-200">clear communication</span>, learning in public,
+                    and staying consistent. Whether I’m teaching someone a concept, solving
+                    a problem, or packing an order — I try to give my best in every detail.
+                </p>
+                <div class="mt-3">
+                    <div class="about-highlight">
+                        <div class="about-pill">CSE Student</div>
+                        <div class="about-pill">Creative Problem Solver</div>
+                        <div class="about-pill">Page & Business Manager</div>
+                    </div>
+                </div>
+                <div class="mt-7 flex flex-wrap gap-3">
+                    <a href="Maliha_Jahan_CV.pdf" download class="btn-primary inline-flex items-center gap-2 text-sm">
+                        <i class="fas fa-file-pdf text-xs"></i>
+                        Download Full CV
+                    </a>
+                    <span class="text-xs text-slate-400 flex items-center gap-2">
+                        <i class="fa-solid fa-circle-info text-[11px]"></i>
+                        Includes academic info, skills & projects
+                    </span>
+                </div>
+            </div>
+            <div class="space-y-4">
+                <div class="about-card">
+                    <p class="subtle-label mb-2">What defines me</p>
+                    <ul class="space-y-2 text-sm text-slate-200">
+                        <li class="flex gap-2">
+                            <span class="mt-[6px] w-1.5 h-1.5 rounded-full bg-violet-400"></span>
+                            <span><span class="font-semibold text-violet-200">Curious Learner:</span> I enjoy figuring things out from scratch and practicing until I feel confident.</span>
+                        </li>
+                        <li class="flex gap-2">
+                            <span class="mt-[6px] w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+                            <span><span class="font-semibold text-amber-200">Creative Mindset:</span> Crafting, designing and decorating are natural parts of my day.</span>
+                        </li>
+                        <li class="flex gap-2">
+                            <span class="mt-[6px] w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                            <span><span class="font-semibold text-emerald-200">People-Centric:</span> I love explaining things, guiding juniors, and collaborating with others.</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="about-card">
+                    <p class="subtle-label mb-2">Currently</p>
+                    <p class="text-sm text-slate-200 leading-relaxed mb-3">
+                        ✦ Studying CSE & strengthening core programming<br>
+                        ✦ Growing <span class="text-amber-200 font-medium">Craft_Zennz</span> as a small business<br>
+                        ✦ Exploring more real-life inspired projects to build my portfolio
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Skills -->
+<section id="skills" class="py-20 md:py-24">
+    <div class="section-shell">
+        <div class="flex items-center justify-between gap-3 mb-6">
+            <div>
+                <p class="subtle-label">Strengths I bring</p>
+                <h2 class="section-title">
+                    Skills
+                    <span class="section-pill"></span>
+                </h2>
+            </div>
+        </div>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mt-4">
+            <div class="skill-card">
+                <div class="flex items-center justify-between gap-2">
+                    <span class="text-sm font-semibold text-slate-100">Excellent Communication</span>
+                    <span class="text-xs text-slate-400">95%</span>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-level" style="width: 95%;"></div>
+                </div>
+                <p class="mt-3 text-xs text-slate-400">
+                    Comfortable explaining concepts clearly — whether in class, with friends, or online.
+                </p>
+            </div>
+            <div class="skill-card">
+                <div class="flex items-center justify-between gap-2">
+                    <span class="text-sm font-semibold text-slate-100">Creativity & Innovation</span>
+                    <span class="text-xs text-slate-400">92%</span>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-level" style="width: 92%;"></div>
+                </div>
+                <p class="mt-3 text-xs text-slate-400">
+                    I love trying new styles, layouts, and ideas — both in code and crafts.
+                </p>
+            </div>
+            <div class="skill-card">
+                <div class="flex items-center justify-between gap-2">
+                    <span class="text-sm font-semibold text-slate-100">Design-Oriented Mindset</span>
+                    <span class="text-xs text-slate-400">90%</span>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-level" style="width: 90%;"></div>
+                </div>
+                <p class="mt-3 text-xs text-slate-400">
+                    I care about alignment, spacing, colors and how things feel to the user.
+                </p>
+            </div>
+            <div class="skill-card">
+                <div class="flex items-center justify-between gap-2">
+                    <span class="text-sm font-semibold text-slate-100">Interpersonal Management</span>
+                    <span class="text-xs text-slate-400">88%</span>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-level" style="width: 88%;"></div>
+                </div>
+                <p class="mt-3 text-xs text-slate-400">
+                    Managing relationships softly and respectfully — online and offline.
+                </p>
+            </div>
+            <div class="skill-card">
+                <div class="flex items-center justify-between gap-2">
+                    <span class="text-sm font-semibold text-slate-100">Teaching & Mentoring</span>
+                    <span class="text-xs text-slate-400">85%</span>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-level" style="width: 85%;"></div>
+                </div>
+                <p class="mt-3 text-xs text-slate-400">
+                    I genuinely enjoy helping others understand topics that I’ve already learned.
+                </p>
+            </div>
+            <div class="skill-card">
+                <div class="flex items-center justify-between gap-2">
+                    <span class="text-sm font-semibold text-slate-100">Business & Page Management</span>
+                    <span class="text-xs text-slate-400">87%</span>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-level" style="width: 87%;"></div>
+                </div>
+                <p class="mt-3 text-xs text-slate-400">
+                    Handling social media, customer messages and orders for my craft page.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Projects -->
+<section id="projects" class="py-20 md:py-24">
+    <div class="section-shell">
+        <div class="flex items-center justify-between gap-3 mb-6">
+            <div>
+                <p class="subtle-label">Things I’ve built so far</p>
+                <h2 class="section-title">
+                    Projects
+                    <span class="section-pill"></span>
+                </h2>
+            </div>
+        </div>
+        <div class="grid md:grid-cols-2 gap-5 mt-2">
+            <div class="project-card">
+                <div class="flex justify-between items-start gap-3 mb-3">
+                    <h3 class="text-lg font-semibold text-slate-50">
+                        Bank Management System
+                    </h3>
+                    <span class="project-tag">
+                        <i class="fa-solid fa-terminal text-[11px]"></i>
+                        Console Project
+                    </span>
+                </div>
+                <p class="text-xs text-slate-300 leading-relaxed">
+                    A console-based banking application to manage customer accounts:
+                    open account, deposit, withdraw, and view transaction history with
+                    simple but secure authentication flow.
+                </p>
+                <div class="mt-4 flex flex-wrap gap-2 text-[11px] text-slate-400">
+                    <span class="px-2 py-0.5 rounded-full bg-slate-900/80 border border-slate-700">Account Handling</span>
+                    <span class="px-2 py-0.5 rounded-full bg-slate-900/80 border border-slate-700">Transactions</span>
+                    <span class="px-2 py-0.5 rounded-full bg-slate-900/80 border border-slate-700">Basic Security</span>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="flex justify-between items-start gap-3 mb-3">
+                    <h3 class="text-lg font-semibold text-slate-50">
+                        ATM Management System
+                    </h3>
+                    <span class="project-tag">
+                        <i class="fa-solid fa-credit-card text-[11px]"></i>
+                        Simulation
+                    </span>
+                </div>
+                <p class="text-xs text-slate-300 leading-relaxed">
+                    A simple ATM simulator that handles PIN verification, balance checks,
+                    cash withdrawal, and mini-statements — reflecting how real ATMs behave
+                    in a controlled environment.
+                </p>
+                <div class="mt-4 flex flex-wrap gap-2 text-[11px] text-slate-400">
+                    <span class="px-2 py-0.5 rounded-full bg-slate-900/80 border border-slate-700">PIN Verification</span>
+                    <span class="px-2 py-0.5 rounded-full bg-slate-900/80 border border-slate-700">Balance Inquiry</span>
+                    <span class="px-2 py-0.5 rounded-full bg-slate-900/80 border border-slate-700">Mini Statement</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact -->
+<section id="contact" class="py-20 md:py-24">
+    <div class="section-shell">
+        <div class="flex items-center justify-between gap-3 mb-6">
+            <div>
+                <p class="subtle-label">Let’s stay in touch</p>
+                <h2 class="section-title">
+                    Contact
+                    <span class="section-pill"></span>
+                </h2>
+            </div>
+        </div>
+        <div class="contact-shell">
+            <div class="contact-card">
+                <p class="contact-pill mb-4">
+                    <i class="fa-solid fa-location-dot text-xs text-amber-300"></i>
+                    Chattogram, Bangladesh
+                </p>
+                <p class="text-sm text-slate-200 mb-4">
+                    Whether it’s about studies, collaboration, projects, design, or just a kind
+                    message — feel free to reach out. I’m always happy to connect and learn from others.
+                </p>
+                <div class="space-y-3 text-sm">
+                    <p class="flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-full bg-violet-500/15 flex items-center justify-center text-violet-200">
+                            <i class="fa-solid fa-phone text-xs"></i>
+                        </span>
+                        <span>
+                            Phone:
+                            <a href="tel:01884047422" class="text-amber-200 hover:text-amber-100">
+                                01884047422
+                            </a>
+                        </span>
+                    </p>
+                    <p class="flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-full bg-amber-500/15 flex items-center justify-center text-amber-200">
+                            <i class="fa-solid fa-envelope text-xs"></i>
+                        </span>
+                        <span>
+                            Email:
+                            <a href="mailto:malihajahann18@gmail.com" class="text-amber-200 hover:text-amber-100">
+                                malihajahann18@gmail.com
+                            </a>
+                        </span>
+                    </p>
+                    <p class="flex items-start gap-3">
+                        <span class="w-8 h-8 rounded-full bg-emerald-500/15 flex items-center justify-center text-emerald-200">
+                            <i class="fa-solid fa-map-marker-alt text-xs"></i>
+                        </span>
+                        <span class="text-slate-300 text-sm">
+                            House 15, Road 3,<br>
+                            South Khulshi, Chattogram,<br>
+                            Bangladesh
+                        </span>
+                    </p>
+                </div>
+            </div>
+            <div class="contact-card flex flex-col justify-between">
+                <div>
+                    <p class="subtle-label mb-2">Social</p>
+                    <p class="text-sm text-slate-200 mb-4">
+                        You can also find me & my work here:
+                    </p>
+                    <div class="flex flex-wrap gap-3 text-2xl text-slate-200">
+                        <a href="https://www.linkedin.com/in/maliha-jahan-018619399" target="_blank" class="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center hover:text-violet-300 hover:bg-slate-800 transition">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://github.com/malihajahann18-cell" target="_blank" class="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center hover:text-amber-200 hover:bg-slate-800 transition">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://www.facebook.com/share/17PCVkVb2U/?mibextid=wwXIfr" target="_blank" class="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center hover:text-amber-200 hover:bg-slate-800 transition">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://www.instagram.com/malihaa_jahan" target="_blank" class="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center hover:text-violet-300 hover:bg-slate-800 transition">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://www.instagram.com/craft_zennz" target="_blank" class="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center hover:text-violet-300 hover:bg-slate-800 transition">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+                <p class="mt-6 text-xs text-slate-500">
+                    I check messages regularly — feel free to say hi anytime. 💌
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="py-6">
+    <div class="max-w-6xl mx-auto px-4 lg:px-0 text-center text-xs text-slate-500">
+        © 2025 <span class="text-slate-200 font-medium">Maliha Jahan</span>. All rights reserved.
+    </div>
+</footer>
+
+<script>
+    // Mobile nav toggle
+    document.getElementById('nav-toggle').addEventListener('click', () => {
+        document.getElementById('nav-mobile').classList.toggle('hidden');
+    });
+
+    // Smooth scroll + active nav highlight
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth' });
+            }
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active-nav'));
+            this.classList.add('active-nav');
+            document.getElementById('nav-mobile')?.classList.add('hidden');
+        });
+    });
+
+    // Active nav on scroll
+    window.addEventListener('scroll', () => {
+        let current = '';
+        document.querySelectorAll('section').forEach(section => {
+            const sectionTop = section.offsetTop - 180;
+            if (scrollY >= sectionTop) {
+                current = section.getAttribute('id');
+            }
+        });
+        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active-nav'));
+        if (current) {
+            document.querySelectorAll(`a[href="#${current}"]`).forEach(l => l.classList.add('active-nav'));
+        }
+    });
+
+    // Default active for Home
+    document.querySelector('a[href="#home"]').classList.add('active-nav');
+</script>
+</body>
+</html>
